@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: sergyspylearn-api
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node api/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: APP_PASSWORD
+        sync: false          # À renseigner dans le dashboard Render
+      - key: SESSION_SECRET
+        generateValue: true  # Render génère automatiquement
+      - key: ALLOWED_ORIGINS
+        value: https://sergysbagbonon-afk.github.io
+      - key: DB_PATH
+        value: /var/data/sergyspylearn.db
+      - key: UPLOADS_DIR
+        value: /var/data/uploads
+    disk:
+      name: sergyspylearn-data
+      mountPath: /var/data
+      sizeGB: 1
